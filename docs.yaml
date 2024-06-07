@@ -1,0 +1,75 @@
+---
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  "/hidden/testMethodInvocation":
+    get:
+      tags:
+        - test-method-invocation-controller
+      operationId: invokeTestMethod
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/api/v1/method/{methodName}":
+    get:
+      tags:
+        - time-stats-controller
+      operationId: getStatsByMethodName
+      parameters:
+        - name: methodName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/MethodStatsDto"
+  "/api/v1/class/{className}":
+    get:
+      tags:
+        - time-stats-controller
+      operationId: getStatsByClassName
+      parameters:
+        - name: className
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/MethodStatsDto"
+components:
+  schemas:
+    MethodStatsDto:
+      type: object
+      properties:
+        methodName:
+          type: string
+        avgRuntime:
+          type: number
+          format: double
+        exceptionsOccurred:
+          type: integer
+          format: int64
+        longestRuntime:
+          type: integer
+          format: int64

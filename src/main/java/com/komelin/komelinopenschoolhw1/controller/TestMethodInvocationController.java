@@ -15,7 +15,7 @@ public class TestMethodInvocationController {
 
     private final TestService testService;
     @GetMapping("/testMethodInvocation")
-    public ResponseEntity<?> invokeTestMethod() {
+    public ResponseEntity<String> invokeTestMethod() {
         testService.syncTestMethod();
         testService.asyncTestMethod();
         testService.asyncThrowsException();
